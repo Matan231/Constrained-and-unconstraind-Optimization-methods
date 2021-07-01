@@ -1,11 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib import cm
-from mpl_toolkits.mplot3d import axes3d
+
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection  # appropriate import to draw 3d polygons
-from matplotlib import style
+
 
 def report(iter_num, x_prev, x_next, f_prev, f_next,success):
     print(f"Itaration: {iter_num} current location: {x_next} obj value: {f_next} step length: {np.linalg.norm(x_next - x_prev)} change in Value: {np.linalg.norm(f_next-f_prev)}, {success}")
@@ -96,8 +94,8 @@ def plot_feasibile_lp(f, path, plot_range = 3.0, num_of_counter_lines = 25 , tit
 
     plt.xlabel(r'$x$')
     plt.ylabel(r'$y$')
-    print(path[-1])
-    plt.plot(path[-1][0], path[-1][1] , 'ro')
+    plt.title(f"lp_optimization: obj value = {f(path[-1])[0]}")
+    plt.plot(path[-1][0], path[-1][1], 'ro')
 
     plt.show()
 
@@ -113,17 +111,12 @@ def plot_feasibile_qp(func, path):
     verts = [list(zip(x1, y1, z1))]
     srf = Poly3DCollection(verts, alpha=.25, facecolor='#800000')
     plt.gca().add_collection3d(srf)
-
     custom.set_xlabel('X')
     custom.set_ylabel('Y')
     custom.set_zlabel('Z')
-
-
     points = np.stack( path, axis=0 ).T
-
-
     custom.plot(points[0], points[1], points[2], marker='x')
     custom.scatter(*points.T[-1], color='red')
-
+    plt.title(f"qp_optimization: obj value = {func(path[-1])[0]}")
     plt.show()
 
