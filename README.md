@@ -1,1 +1,1 @@
-# hw2-optimization
+# Optimization and constrained optimization methods
